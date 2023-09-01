@@ -42,7 +42,7 @@ To integrate Jeller as a submodule in your project, first of all add it as a sub
 git submodule add git@github.com:pasparsw/jeller.git
 ```
 Then in CMakeLists.txt include Jeller to your build by using _add_subdirectory_ command and link it to your target. Example CMakeLists.txt:
-```
+```cmake
 cmake_minimum_required(VERSION 3.10)
 project(YourProject)
 
@@ -93,7 +93,7 @@ jeller_linux
 ```
 
 Assuming, that you are on Windows and the Jeller package _jeller_win_ has been placed in the root of your project, an example CMakeLists.txt file may look like this:
-```
+```cmake
 cmake_minimum_required(VERSION 3.10)
 project(YourProject)
 
