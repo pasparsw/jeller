@@ -1,26 +1,42 @@
-#pragma once
 
-#if defined (_WIN32) || defined (__CYGWIN__)
-    #if defined (EXPORT_JELLER_API)
-        #ifdef __GNUC__
-            #define PUBLIC_JELLER_API __attribute__ ((dllexport))
-        #else
-            #define PUBLIC_JELLER_API __declspec(dllexport)
-        #endif
-    #else
-        #ifdef __GNUC__
-            #define PUBLIC_JELLER_API __attribute__ ((dllimport))
-        #else
-            #define PUBLIC_JELLER_API __declspec(dllimport)
-        #endif
-    #endif
-    #define NOT_EXPORTED
+#ifndef PUBLIC_JELLER_API_H
+#define PUBLIC_JELLER_API_H
+
+#ifdef JELLER_STATIC_DEFINE
+#  define PUBLIC_JELLER_API
+#  define JELLER_NO_EXPORT
 #else
-    #if __GNUC__ >= 4
-        #define PUBLIC_JELLER_API __attribute__ ((visibility ("default")))
-        #define NOT_EXPORTED __attribute__ ((visibility ("hidden")))
-    #else
-        #define PUBLIC_JELLER_API
-        #define NOT_EXPORTED
-    #endif
+#  ifndef PUBLIC_JELLER_API
+#    ifdef Jeller_EXPORTS
+        /* We are building this library */
+#      define PUBLIC_JELLER_API __declspec(dllexport)
+#    else
+        /* We are using this library */
+#      define PUBLIC_JELLER_API __declspec(dllimport)
+#    endif
+#  endif
+
+#  ifndef JELLER_NO_EXPORT
+#    define JELLER_NO_EXPORT 
+#  endif
 #endif
+
+#ifndef JELLER_DEPRECATED
+#  define JELLER_DEPRECATED __declspec(deprecated)
+#endif
+
+#ifndef JELLER_DEPRECATED_EXPORT
+#  define JELLER_DEPRECATED_EXPORT PUBLIC_JELLER_API JELLER_DEPRECATED
+#endif
+
+#ifndef JELLER_DEPRECATED_NO_EXPORT
+#  define JELLER_DEPRECATED_NO_EXPORT JELLER_NO_EXPORT JELLER_DEPRECATED
+#endif
+
+#if 0 /* DEFINE_NO_DEPRECATED */
+#  ifndef JELLER_NO_DEPRECATED
+#    define JELLER_NO_DEPRECATED
+#  endif
+#endif
+
+#endif /* PUBLIC_JELLER_API_H */
