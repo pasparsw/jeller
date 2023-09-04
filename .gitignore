@@ -2,3 +2,5 @@
 build
 jeller_win
 jeller_linux
+include/jeller/export_jeller_api.hpp
+scripts/logs.txt

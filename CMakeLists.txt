@@ -27,4 +27,11 @@ target_sources(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/utils.cpp
 )
 
+include(GenerateExportHeader)
+generate_export_header(${PROJECT_NAME}
+    BASE_NAME ${PROJECT_NAME}
+    EXPORT_MACRO_NAME PUBLIC_JELLER_API
+    EXPORT_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/include/jeller/export_jeller_api.hpp
+)
+
 install(TARGETS ${PROJECT_NAME} DESTINATION ${INSTALL_DIRECTORY})
